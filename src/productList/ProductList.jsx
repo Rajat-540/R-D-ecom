@@ -10,7 +10,7 @@ function ProductList(){
         .then(res => res.json())
         .then(res => {setProducts(res["products"]);
              setLoading(false);})
-        console.log(products);
+        //console.log(products);
     },[]);
     
     const styles = {

@@ -6,7 +6,7 @@ function ProductList(){
     const [products,setProducts] = useState([]);
     let [loading,setLoading] = useState(true);
     useEffect(() =>{
-        fetch("https://fakestoreapi.in/api/products?page=1&limit=10")
+        fetch("https://fakestoreapi.in/api/products?page=1&limit=5")
         .then(res => res.json())
         .then(res => {setProducts(res["products"]);
              setLoading(false);})

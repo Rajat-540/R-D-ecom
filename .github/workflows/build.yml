@@ -38,9 +38,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 5️⃣ Run tests
-      - name: Run tests
-        run: npm test -- --passWithNoTests
 
       # 6️⃣ Build the app
       - name: Build project

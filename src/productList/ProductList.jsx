@@ -5,13 +5,14 @@ import logo from '../logo.svg';
 function ProductList(){
     const [products,setProducts] = useState([]);
     let [loading,setLoading] = useState(true);
+    let [page, setPage] = useState(1);
     useEffect(() =>{
-        fetch("https://fakestoreapi.in/api/products?page=1&limit=10")
+        setLoading(true);
+        fetch(`https://fakestoreapi.in/api/products?page=${page}&limit=12`)
         .then(res => res.json())
         .then(res => {setProducts(res["products"]);
              setLoading(false);})
-        //console.log(products);
-    },[]);
+    },[page]);
     
     const styles = {
         list: {
@@ -26,6 +27,9 @@ function ProductList(){
             justifyContent: 'center',   // Center horizontally
             alignItems: 'center',       // Center vertically
             background: '#f5f5f5',
+        },
+        topbanner:{
+          position: 'fixed',
         }
     };
     if(loading)
@@ -38,6 +42,16 @@ function ProductList(){
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      <button
+          onClick={() => setPage(p => Math.max(p - 1, 1))}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <span> Page {page} </span>
+        <button onClick={() => setPage(p => p + 1)}>
+          Next
+        </button>
     </div>
     );
 }

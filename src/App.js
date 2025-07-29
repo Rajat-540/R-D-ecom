@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import ProductList from "./productList";
+import CartIcon from './cart/CartIcon';
 
 function App() {
   let [cart, setCart] = useState({});
+
   function addToCart(product){
     let newCart = {...cart};
     if(newCart[product.id] == null){
@@ -30,10 +32,19 @@ function App() {
     }
     setCart(newCart);
   }
-
-  console.log("cart is",cart);
+// view cart items
+function getTotalItems(cart) {
+  return Object.values(cart).reduce((total, item) => total + item.quantity, 0);
+}
+  const totalItems = getTotalItems(cart);
   return (
     <div className="App">
+      <div>
+        <CartIcon cartCount={totalItems} onClick={() => {
+          const titles = Object.values(cart).map(item => item.title+" - "+item.quantity);
+          alert(`Cart items: \n- ${titles.join('\n- ')}`);
+        }}/>
+      </div>
       <ProductList addToCart={addToCart} decreaseQty={decreaseQty} cart={cart}/>
     </div>
   );

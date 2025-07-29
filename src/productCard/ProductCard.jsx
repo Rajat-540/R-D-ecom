@@ -1,7 +1,7 @@
 import React from 'react';
 
 // ProductCard component to display one product
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, addToCart }) => {
     const {
         title,
         image,
@@ -20,6 +20,17 @@ const ProductCard = ({ product }) => {
             gap: '1rem',
             justifyContent: 'center',
         },
+        addToCart:{
+            marginTop: '0.8rem',
+            padding: '0.5rem 1rem',
+            backgroundColor: '#E53935',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            width: '100%',
+            },
         card: {
             border: '1px solid #ddd',
             borderRadius: '8px',
@@ -88,6 +99,9 @@ const ProductCard = ({ product }) => {
             fontSize: '0.9rem',
         },
     };
+    function handleAddToCart(){
+        addToCart(product);
+    }
 
 
     // Calculate discounted price
@@ -113,6 +127,7 @@ const ProductCard = ({ product }) => {
                     <span style={styles.discount}>({discount}% off)</span>
                 )}
             </div>
+            <button style={styles.addToCart} onClick={handleAddToCart}>Add to Cart</button>
         </div>
     );
 };

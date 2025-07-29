@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import ProductCard from "../productCard";
 import logo from '../logo.svg';
 
-function ProductList(){
+function ProductList( { addToCart } ){
     const [products,setProducts] = useState([]);
     let [loading,setLoading] = useState(true);
     let [page, setPage] = useState(1);
@@ -13,6 +13,7 @@ function ProductList(){
         .then(res => {setProducts(res["products"]);
              setLoading(false);})
     },[page]);
+    //let cartQuantity = 2;
     
     const styles = {
         list: {
@@ -45,7 +46,7 @@ function ProductList(){
       <div style={styles.topbanner}><h1 className="text-2xl font-bold mb-6">Products</h1></div>
       <div style={styles.list}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} addToCart={addToCart} />
         ))}
       </div>
       <button

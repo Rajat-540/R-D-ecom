@@ -1,7 +1,7 @@
 import React from 'react';
 
 // ProductCard component to display one product
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product, addToCart, decreaseQty, cart }) => {
     const {
         title,
         image,
@@ -102,6 +102,9 @@ const ProductCard = ({ product, addToCart }) => {
     function handleAddToCart(){
         addToCart(product);
     }
+    function handleDecreaseQty(){
+        decreaseQty(product);
+    }
 
 
     // Calculate discounted price
@@ -126,8 +129,15 @@ const ProductCard = ({ product, addToCart }) => {
                 {discount > 0 && (
                     <span style={styles.discount}>({discount}% off)</span>
                 )}
+            </div>{
+                cart[product.id]==null ?
+            <button style={styles.addToCart} onClick={handleAddToCart}>Add to Cart</button> :
+            <div class="quantity-control" style={{padding : '15px'}}>
+                <button type="button" id="decrement" onClick={handleDecreaseQty}>-</button>
+                <span id="quantity" style={{padding : '10px'}}>{cart[product.id].quantity}</span>
+                <button type="button" id="increment" onClick={handleAddToCart}>+</button>
             </div>
-            <button style={styles.addToCart} onClick={handleAddToCart}>Add to Cart</button>
+            }
         </div>
     );
 };

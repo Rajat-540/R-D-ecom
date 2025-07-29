@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import ProductCard from "../productCard";
 import logo from '../logo.svg';
 
-function ProductList( { addToCart } ){
+function ProductList( { addToCart, decreaseQty, cart } ){
     const [products,setProducts] = useState([]);
     let [loading,setLoading] = useState(true);
     let [page, setPage] = useState(1);
@@ -37,6 +37,19 @@ function ProductList( { addToCart } ){
           height: '70px',
           backgroundColor: '#a2c06eff',
           zIndex: 1000
+        },
+        bottombanner:{
+          position: 'fixed',
+          bottom: 0,                      // fixed at the bottom
+          left: '50%',                   // horizontally center using left 50%
+          transform: 'translateX(-50%)',  // offset to center exactly
+          backgroundColor: '#e6e994ff',       // white background to overlay nicely
+          borderTop: '1px solid #eee',
+          padding: '10px 20px',
+          zIndex: 1000,                  // make sure it appears above other content
+          display: 'flex',
+          gap: '10px',                   // space between buttons
+          boxShadow: '0 -2px 8px rgba(0,0,0,0.1)'
         }
     };
     if(loading)
@@ -46,19 +59,24 @@ function ProductList( { addToCart } ){
       <div style={styles.topbanner}><h1 className="text-2xl font-bold mb-6">Products</h1></div>
       <div style={styles.list}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} addToCart={addToCart} />
+          <ProductCard key={product.id} product={product} 
+          addToCart={addToCart} 
+          decreaseQty={decreaseQty} 
+          cart = {cart}/>
         ))}
       </div>
-      <button
-          onClick={() => setPage(p => Math.max(p - 1, 1))}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
-        <span> Page {page} </span>
-        <button onClick={() => setPage(p => p + 1)}>
-          Next
-        </button>
+      <div style = {styles.bottombanner}>
+        <button
+            onClick={() => setPage(p => Math.max(p - 1, 1))}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+          <span> Page {page} </span>
+          <button  onClick={() => setPage(p => p + 1)}>
+            Next
+          </button>
+        </div>
     </div>
     );
 }

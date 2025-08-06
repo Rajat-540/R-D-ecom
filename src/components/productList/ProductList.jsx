@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, memo } from "react"
 import ProductCard from "../productCard";
-import logo from '../logo.svg';
+import logo from '../../logo.svg';
 
 function ProductList( { addToCart, decreaseQty, cart } ){
     const [products,setProducts] = useState([]);
@@ -81,4 +81,4 @@ function ProductList( { addToCart, decreaseQty, cart } ){
     );
 }
 
-export default ProductList;
+export default memo(ProductList);

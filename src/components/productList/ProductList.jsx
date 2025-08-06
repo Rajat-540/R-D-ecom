@@ -59,10 +59,7 @@ function ProductList( { addToCart, decreaseQty, cart } ){
       <div style={styles.topbanner}><h1 className="text-2xl font-bold mb-6">Products</h1></div>
       <div style={styles.list}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} 
-          addToCart={addToCart} 
-          decreaseQty={decreaseQty} 
-          cart = {cart}/>
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
       <div style = {styles.bottombanner}>

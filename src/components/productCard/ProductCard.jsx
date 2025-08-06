@@ -1,7 +1,10 @@
-import React from 'react';
+import { useContext } from 'react';
+import CartContext from '../../context/CartContext';
+import styles from './styles';
 
 // ProductCard component to display one product
-const ProductCard = ({ product, addToCart, decreaseQty, cart }) => {
+const ProductCard = ({ product}) => {
+    const {cart, addToCart, decreaseQty} = useContext(CartContext);
     const {
         title,
         image,
@@ -13,92 +16,7 @@ const ProductCard = ({ product, addToCart, decreaseQty, cart }) => {
         category,
         discount,
     } = product;
-    const styles = {
-        list: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            justifyContent: 'center',
-        },
-        addToCart:{
-            marginTop: '0.8rem',
-            padding: '0.5rem 1rem',
-            backgroundColor: '#E53935',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            width: '100%',
-            },
-        card: {
-            border: '1px solid #ddd',
-            borderRadius: '8px',
-            width: 280,
-            padding: '1rem',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-            backgroundColor: '#fff',
-        },
-        image: {
-            width: '100%',
-            height: 160,
-            borderRadius: '4px',
-            objectFit: 'contain',
-            marginBottom: '0.8rem',
-        },
-        title: {
-            fontSize: '1.1rem',
-            margin: '0 0 0.4rem 0',
-            height: 48,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-        },
-        brandModel: {
-            color: '#555',
-            fontSize: '0.85rem',
-            margin: '0 0 0.2rem 0',
-        },
-        category: {
-            fontSize: '0.8rem',
-            color: '#888',
-            margin: '0 0 0.6rem 0',
-        },
-        description: {
-            fontSize: '0.85rem',
-            color: '#444',
-            margin: '0 0 0.8rem 0',
-            height: 55,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-        },
-        priceWrapper: {
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.6rem',
-        },
-        originalPrice: {
-            textDecoration: 'line-through',
-            color: '#999',
-            fontSize: '0.9rem',
-        },
-        price: {
-            fontWeight: 'bold',
-            color: '#E53935',
-            fontSize: '1.1rem',
-        },
-        discount: {
-            color: '#4CAF50',
-            fontWeight: '600',
-            fontSize: '0.9rem',
-        },
-    };
+    
     function handleAddToCart(){
         addToCart(product);
     }
@@ -132,10 +50,10 @@ const ProductCard = ({ product, addToCart, decreaseQty, cart }) => {
             </div>{
                 cart[product.id]==null ?
             <button style={styles.addToCart} onClick={handleAddToCart}>Add to Cart</button> :
-            <div class="quantity-control" style={{padding : '15px'}}>
-                <button type="button" id="decrement" onClick={handleDecreaseQty}>-</button>
+            <div className="quantity-control" style={styles.quantityControl}>
+                <button type="button" id="decrement" style={styles.qtyButton} onClick={handleDecreaseQty}>-</button>
                 <span id="quantity" style={{padding : '10px'}}>{cart[product.id].quantity}</span>
-                <button type="button" id="increment" onClick={handleAddToCart}>+</button>
+                <button type="button" id="increment" style={styles.qtyButton} onClick={handleAddToCart}>+</button>
             </div>
             }
         </div>
